@@ -148,7 +148,8 @@ describe('ConfigBuilder', function() {
 					c: null,
 					d: function() {
 						return 100500;
-					}
+					},
+					f: 10
 				}
 			});
 
@@ -157,7 +158,10 @@ describe('ConfigBuilder', function() {
 				name: 'children',
 				config: {
 					a: 2,
-					e: '22'
+					e: '22',
+					f: function(config, name, parent) {
+						return parent.f + 1;
+					}
 				}
 			});
 
@@ -169,6 +173,7 @@ describe('ConfigBuilder', function() {
 			expect(config.c).to.be(null);
 			expect(config.d).to.be(100500);
 			expect(config.e).to.be('22');
+			expect(config.f).to.be(11);
 		});
 
 		it('should be ok with function field', function() {
